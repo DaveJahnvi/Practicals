@@ -1,0 +1,33 @@
+import numpy
+from sklearn import datasets,svm
+from sklearn.metrics import confusion_matrix
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import classification_report
+from sklearn.tree import DecisionTreeClassifier
+
+iris=datasets.load_iris();
+
+traningset=iris.data[range(0,150,2),:]
+traningsettarget=iris.target[range(0,150,2)]
+
+testset=iris.data[range(1,150,2),:]
+testsetarget=iris.target[range(1,150,2)]
+
+
+clf=svm.LinearSVC()
+clf.fit(traningset,traningsettarget)
+predictions=clf.predict(testset)
+print("******Prediction******")
+print(predictions)
+
+print("---------------------------------------------")
+score=accuracy_score(testsetarget, predictions, normalize=True)
+print("############SCORE###########")
+print(score);
+
+
+print("##########Confusion Matrix############")
+cm=confusion_matrix(testsetarget, predictions);
+print(cm)
+print("######classification report###############")
+print(classification_report(testsetarget,predictions))
